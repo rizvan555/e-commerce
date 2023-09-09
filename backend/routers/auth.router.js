@@ -15,10 +15,17 @@ router.post('/register', async (req, res) => {
     user.createdDate = new Date();
     user.isAdmin = false;
 
-    await user.save();
-    const token = jwt.sign({}, secretKey, options);
-    let model = { token: token, user: user };
-    res.json(model);
+    const checkUserEmail = await User.findOne({ email: user.email });
+    if (checkUserEmail !== null) {
+      res
+        .status(403)
+        .json({ message: 'You must use a different email address' });
+    } else {
+      await user.save();
+      const token = jwt.sign({}, secretKey, options);
+      let model = { token: token, user: user };
+      res.json(model);
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
