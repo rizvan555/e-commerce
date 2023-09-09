@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
-const uri =
-  'mongodb+srv://rizvan555:fatimafateh555@cluster0.av7lucl.mongodb.net/';
+const uri = 'mongodb://localhost:27017/';
 
 const connection = () => {
   mongoose
-    .connect(uri, { useNewUrlParser: true, useUnifiedTopolgy: true })
+    .connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      socketTimeoutMS: 30000,
+    })
     .then(() => console.log('Your MongoDb connect is successfuly'))
     .catch((err) => console.log('You have Error! Error:' + err.message));
 };
