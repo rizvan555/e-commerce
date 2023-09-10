@@ -12,21 +12,28 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () =>
       import('./components/register/register.component').then(
-        (m) => m.RegisterComponent
+        (c) => c.RegisterComponent
       ),
   },
   {
     path: '',
     loadComponent: () =>
       import('./components/layouts/layouts.component').then(
-        (m) => m.LayoutsComponent
+        (c) => c.LayoutsComponent
       ),
     children: [
       {
         path: '',
         loadComponent: () =>
           import('./components/home/home.component').then(
-            (m) => m.HomeComponent
+            (c) => c.HomeComponent
+          ),
+      },
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./components/categories/categories.component').then(
+            (c) => c.CategoriesComponent
           ),
       },
     ],
