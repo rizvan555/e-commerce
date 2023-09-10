@@ -10,7 +10,7 @@
             <label for="name"> Name, Surname</label>
             <input
               type="text"
-              ngModel
+              [(ngModel)]="model.name"
               name="name"
               id=""
               name
@@ -26,7 +26,7 @@
             <label for="name">Email</label>
             <input
               type="email"
-              ngModel
+              [(ngModel)]="model.email"
               name="email"
               id="email"
               #email
@@ -41,7 +41,7 @@
             <label for="name">Password</label>
             <input
               type="password"
-              ngModel
+              [(ngModel)]="model.password"
               name="password"
               id="password"
               #password
