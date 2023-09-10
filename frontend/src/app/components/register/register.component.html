@@ -1,1 +1,72 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center" style="margin-top: 75px">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="text-center">Sign Up</h1>
+      </div>
+      <div class="card-body">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+          <div class="form-group">
+            <label for="name"> Name, Surname</label>
+            <input
+              type="text"
+              ngModel
+              name="name"
+              id=""
+              name
+              #name
+              [appValid]="name.validity.valid"
+              required
+              minlength="3"
+              class="form-control"
+            />
+            <div class="invalid-feedback">Must be at least 3 characters</div>
+          </div>
+          <div class="form-group mt-2">
+            <label for="name">Email</label>
+            <input
+              type="email"
+              ngModel
+              name="email"
+              id="email"
+              #email
+              [appValid]="email.validity.valid"
+              required
+              minlength="3"
+              class="form-control"
+            />
+            <div class="invalid-feedback">Must be at least 3 characters</div>
+          </div>
+          <div class="form-group mt-2">
+            <label for="name">Password</label>
+            <input
+              type="password"
+              ngModel
+              name="password"
+              id="password"
+              #password
+              [appValid]="password.validity.valid"
+              required
+              minlength="3"
+              class="form-control"
+            />
+            <div class="invalid-feedback">
+              The password field cannot be empty
+            </div>
+          </div>
+          <div class="form-group mt-2">
+            <button
+              [disabled]="!registerForm.valid"
+              class="btn btn-outline-success w-100"
+            >
+              SignUp
+            </button>
+            <a routerLink="/login" style="float: right; margin-top: 20px"
+              >Go to SignIn</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

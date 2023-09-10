@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from 'src/app/common/shared/shared.module';
 import { AuthService } from './services/auth.service';
@@ -18,7 +17,6 @@ export class LoginComponent {
   constructor(
     private _auth: AuthService,
     private _toastr: ToastrService,
-    private _spinner: NgxSpinnerService,
     private _router: Router
   ) {}
 
@@ -28,7 +26,7 @@ export class LoginComponent {
       model.email = form.controls['email'].value;
       model.password = form.controls['password'].value;
       this._auth.login(model, (res) => {
-        this._toastr.success('The entry is successful');
+        this._toastr.success('The entry is success');
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
         this._router.navigateByUrl('/');
