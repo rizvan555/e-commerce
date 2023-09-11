@@ -26,3 +26,19 @@ router.post('/add', upload.array('images'), async (req, res) => {
     res.json({ message: 'Your product has been successfuly saved' });
   });
 });
+
+//Delete product
+router.post('/removeById', async (req, res) => {
+  response(res, async () => {
+    const { _id } = req.body;
+    const product = await Product.findById(_id);
+
+    //For remove Images
+    for (const image of product.imagesUrl) {
+      fs.unlink(image.path, () => {});
+    }
+
+    await Product.findByIdAndRemove(_id);
+    res.json({ message: 'Your product has been successfuly deleted' });
+  });
+});
