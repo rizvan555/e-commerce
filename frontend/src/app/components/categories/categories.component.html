@@ -50,18 +50,20 @@
           >
             <td>{{ i + 1 }}</td>
             <td>{{ category.name }}</td>
-            <td>
+            <td style="display: flex; justify-content: center; gap: 20px">
               <button
                 class="btn btn-outline-warning btn-sm"
                 (click)="get(category)"
                 data-bs-toggle="modal"
                 data-bs-target="#updateModal"
+                style="width: 30%"
               >
                 <i class="fa fa-edit"></i>
               </button>
               <button
                 (click)="removeById(category)"
                 class="btn btn-outline-danger btn-sm mx-1"
+                style="width: 30%"
               >
                 <i class="fa fa-trash"></i>
               </button>
