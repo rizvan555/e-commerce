@@ -6,15 +6,20 @@ const { v4: uuidv4 } = require('uuid');
 router.post('/add', async (req, res) => {
   try {
     const { name } = req.body;
-    const category = new Category({
-      _id: uuidv4(),
-      name: name,
-    });
 
-    await category.save();
-    res.json({
-      message: 'Category registration as been completed successfuly',
-    });
+    const checkName = await Category.findOne({ name: name });
+    if (checkName != null) {
+      req.status(403).json({ message: 'This category has been used before' });
+    } else {
+      const category = new Category({
+        _id: uuidv4(),
+        name: name,
+      });
+      await category.save();
+      res.json({
+        message: 'Category registration as been completed successfuly',
+      });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -42,7 +47,7 @@ router.post('/update', async (req, res) => {
   }
 });
 
-router.get('/getAll', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const categories = await Category.find().sort({ name: 1 });
     res.json(categories);

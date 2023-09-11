@@ -31,7 +31,7 @@ export class GenericHttpService {
 
   post<T>(api: string, model: any, callback: (res: T) => void) {
     this._spinner.show();
-    this._http.post<T>(`${this.api}/${api}`, model, {}).subscribe({
+    this._http.post<T>(`${this.api}/${api}`, model,{}).subscribe({
       next: (res: T) => {
         callback(res);
         this._spinner.hide();
