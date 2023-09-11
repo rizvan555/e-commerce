@@ -14,11 +14,11 @@ export class GenericHttpService {
     private _toastr: ToastrService
   ) {}
 
-  get<T>(api: string, callback: (res: T) => void) {
+  get<T>(api: string, callBack: (res: T) => void) {
     this._spinner.show();
     this._http.get<T>(`${this.api}/${api}`).subscribe({
       next: (res: T) => {
-        callback(res);
+        callBack(res);
         this._spinner.hide();
       },
       error: (err: HttpErrorResponse) => {
@@ -29,11 +29,11 @@ export class GenericHttpService {
     });
   }
 
-  post<T>(api: string, model: any, callback: (res: T) => void) {
+  post<T>(api: string, model: any, callBack: (res: T) => void) {
     this._spinner.show();
-    this._http.post<T>(`${this.api}/${api}`, model,{}).subscribe({
+    this._http.post<T>(`${this.api}/${api}`, model, {}).subscribe({
       next: (res: T) => {
-        callback(res);
+        callBack(res);
         this._spinner.hide();
       },
       error: (err: HttpErrorResponse) => {
