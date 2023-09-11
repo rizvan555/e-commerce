@@ -39,7 +39,7 @@ router.post('/update', async (req, res) => {
   try {
     const { _id, name } = req.body;
     const category = await Category.findOne({ _id: _id });
-    category.nam = name;
+    category.name = name;
     await Category.findByIdAndUpdate(_id, category);
     res.json({ message: 'Category has been successesfuly updated' });
   } catch (error) {
