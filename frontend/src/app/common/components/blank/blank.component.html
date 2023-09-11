@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header">
+    <h3 style="float: left">{{ title }}</h3>
+    <nav aria-label="breadcrumb" style="float: right">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li
+          class="breadcrumb-item active"
+          aria-current="page"
+          *ngIf="title != 'Home'"
+        >
+          {{ title }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-header">
+    <h4>{{ sectionTitle }}</h4>
+  </div>
+  <div class="card-body">
+    <ng-content></ng-content>
+  </div>
+</div>
