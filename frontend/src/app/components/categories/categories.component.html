@@ -16,46 +16,33 @@
       />
     </div>
   </div>
-  <div class="form-group mt-2">
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th style="background-color: #f1f1f1">#</th>
-          <th style="background-color: #f1f1f1">Gategory Name</th>
-          <th style="background-color: #f1f1f1">Others</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let category of categories | categoryPipe : search;
-            let i = index
-          "
+
+  <app-table [heads]="['#', 'Category Name', 'Others']">
+    <tr
+      *ngFor="let category of categories | categoryPipe : search; let i = index"
+    >
+      <td>{{ i + 1 }}</td>
+      <td>{{ category.name }}</td>
+      <td style="display: flex; justify-content: center; gap: 20px">
+        <button
+          class="btn btn-outline-warning btn-sm"
+          (click)="get(category)"
+          data-bs-toggle="modal"
+          data-bs-target="#updateModal"
+          style="width: 30%"
         >
-          <td>{{ i + 1 }}</td>
-          <td>{{ category.name }}</td>
-          <td style="display: flex; justify-content: center; gap: 20px">
-            <button
-              class="btn btn-outline-warning btn-sm"
-              (click)="get(category)"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-              style="width: 30%"
-            >
-              <i class="fa fa-edit"></i>
-            </button>
-            <button
-              (click)="removeById(category)"
-              class="btn btn-outline-danger btn-sm mx-1"
-              style="width: 30%"
-            >
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <i class="fa fa-edit"></i>
+        </button>
+        <button
+          (click)="removeById(category)"
+          class="btn btn-outline-danger btn-sm mx-1"
+          style="width: 30%"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </app-table>
 </app-blank>
 
 <!-- Add Modal -->
