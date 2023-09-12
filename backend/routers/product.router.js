@@ -32,7 +32,6 @@ router.post('/removeById', async (req, res) => {
   response(res, async () => {
     const { _id } = req.body;
     const product = await Product.findById(_id);
-
     //For remove Images
     for (const image of product.imagesUrl) {
       fs.unlink(image.path, () => {});
@@ -40,5 +39,43 @@ router.post('/removeById', async (req, res) => {
 
     await Product.findByIdAndRemove(_id);
     res.json({ message: 'Your product has been successfuly deleted' });
+  });
+});
+
+//Product Listing
+router('/', async (req, res) => {
+  response(res, async () => {
+    const { pageNumber, pageSize, search } = req.body;
+
+    let productsCount = await Product.find({
+      $or: [
+        {
+          name: { $regex: search, options: 'i' },
+        },
+      ],
+    }).count();
+
+    let count = await Product.find({
+      $or: [
+        {
+          name: { regex: search, options: 'i' },
+        },
+      ],
+    })
+      .sort({ name: 1 })
+      .populate('categories')
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize);
+
+    let totalPageCount = Math.ceil(productsCount / pageSize);
+    let model = {
+      datas: products,
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      totalPageCount: totalPageCount,
+      isFirstPage: pageNumber == 1 ? true : false,
+      isLastPage: pageNumber == pageNumber ? true : false,
+    };
+    res.json(model);
   });
 });
