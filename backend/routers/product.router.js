@@ -43,7 +43,7 @@ router.post('/removeById', async (req, res) => {
 });
 
 //Product Listing
-router('/', async (req, res) => {
+router.post('/', async (req, res) => {
   response(res, async () => {
     const { pageNumber, pageSize, search } = req.body;
 
@@ -77,5 +77,14 @@ router('/', async (req, res) => {
       isLastPage: pageNumber == pageNumber ? true : false,
     };
     res.json(model);
+  });
+});
+
+//Product get with ID
+router.post('/getById', async (req, res) => {
+  response(res, async () => {
+    const { _id } = req.body;
+    let product = awaitProduct.findById(_id);
+    res.json(product);
   });
 });
