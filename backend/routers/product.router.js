@@ -88,3 +88,26 @@ router.post('/getById', async (req, res) => {
     res.json(product);
   });
 });
+
+//Product Update
+router.post('/update', upload.array(images), async (req, res) => {
+  response(res, async () => {
+    const { _id, name, stock, price, categories } = req.body;
+    let product = await Product.findById(_id);
+    for (const image of product.imagesUrl) {
+      fs.unlink(image.path, () => {});
+    }
+
+    let imagesUrl;
+    imagesUrl = [...product.imagesUrl, ...product.files];
+    product = {
+      name: name.toUpperCase(),
+      stock: stock,
+      price: price,
+      imagesUrl: imagesUrl,
+      categories: categories,
+    };
+    await Product.findByIdAndUpdate(_id, product);
+    res.json({ message: 'Product update successful' });
+  });
+});
