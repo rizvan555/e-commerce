@@ -131,3 +131,5 @@ router.post('/removeImageByIdAndIndex', async (req, res) => {
     }
   });
 });
+
+module.exports = router;
