@@ -5,6 +5,7 @@ const authRouter = require('./routers/auth.router');
 const categoryRouter = require('./routers/category.router');
 const productRouter = require('./routers/product.router');
 const app = express();
+const path = require('path');
 
 app.use(express.json());
 app.use(cors());
