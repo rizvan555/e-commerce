@@ -1,0 +1,116 @@
+<app-blank title="Products" sectionTitle="Product List">
+  <!-- Add and Search -->
+  <div class="form-group">
+    <button class="btn btn-outline-primary" routerLink="/products/add">
+      <i class="fa fa-plus"></i>
+    </button>
+    <div class="col-md-3" style="float: right">
+      <input
+        class="form-control"
+        type="search"
+        [(ngModel)]="request.search"
+        placeholder="Search"
+        (keyup)="search()"
+        (search)="getAll(1)"
+      />
+    </div>
+  </div>
+
+  <!-- Product List -->
+  <app-table
+    [heads]="[
+      '#',
+      'Image',
+      'Product Name',
+      'Categories',
+      'Stock',
+      'Price',
+      'Date of creating',
+      'Active / Passive',
+      'Others'
+    ]"
+  >
+    <tr *ngFor="let product of result.datas; let index = index">
+      <td>{{ index + 1 }}</td>
+      <td>
+        <img [src]="'http://localhost:8080/' + product.imagesUrl[0].path" />
+      </td>
+      <td>{{ product.name }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let category of product.categories">
+            {{ category.name }}
+          </li>
+        </ul>
+      </td>
+      <td>{{ product.stock }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.createdDate | date : "dd.MM.yyyy HH:mm:sss" }}</td>
+      <td>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckChecked"
+            checked
+          />
+        </div>
+      </td>
+      <td>
+        <button class="btn btn-outline-warning btn-sm" title="Update">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn btn-outline-danger btn-sm mx-1" title="Delete">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </app-table>
+
+  <!-- Pagination -->
+  <select
+    name="pageSize"
+    id="pageSize"
+    class="form-control text-center"
+    [(ngModel)]="request.pageSize"
+    style="width: 65px; float: left"
+  >
+    <option>5</option>
+    <option>10</option>
+    <option>20</option>
+    <option>50</option>
+    <option>100</option>
+    <option>200</option>
+    <option>500</option>
+    <option>1000</option>
+  </select>
+  <nav style="float: right">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="result.isFirstPage ? 'disabled' : ''">
+        <a class="page-link" (click)="getAll(1)">First Page</a>
+      </li>
+      <li class="page-item" [ngClass]="result.isFirstPage ? 'disabled' : ''">
+        <a class="page-link" (click)="getAll(request.pageNumber - 1)"
+          >Previous Page</a
+        >
+      </li>
+      <li class="page-item" *ngFor="let p of pageNumbers">
+        <a
+          class="page-link"
+          [ngClass]="result.pageNumber == p ? 'active' : ''"
+          (click)="getAll(p)"
+          >{{ p }}</a
+        >
+      </li>
+      <li class="page-item" [ngClass]="result.isLastPage ? 'disabled' : ''">
+        <a class="page-link" (click)="getAll(request.pageNumber - 1)"
+          >Next Page</a
+        >
+      </li>
+      <li class="page-item" [ngClass]="result.isLastPage ? 'disabled' : ''">
+        <a class="page-link" (click)="getAll(result.totalPageCount)">Son</a>
+      </li>
+    </ul>
+  </nav>
+</app-blank>

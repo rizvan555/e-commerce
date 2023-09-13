@@ -8,9 +8,9 @@ const productSchema = new mongoose.Schema({
   price: Number,
   createdDate: Date,
   isActive: Boolean,
-  catecories: [{ type: String, ref: 'Category' }],
+  categories: [{ type: String, ref: 'Category' }],
 });
 
 const Product = mongoose.model('Product', productSchema);
 
-module.export = Product;
+module.exports = Product;
