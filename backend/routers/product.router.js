@@ -19,11 +19,11 @@ router.post('/add', upload.array('images'), async (req, res) => {
       categories: categories,
       imagesUrl: req.files,
       isActive: true,
-      createddate: new Date(),
+      createdDate: new Date(),
     });
 
     await product.save();
-    res.json({ message: 'Your product has been successfuly saved' });
+    res.json({ message: 'Your product has been successfully saved' });
   });
 });
 
@@ -38,7 +38,7 @@ router.post('/removeById', async (req, res) => {
     }
 
     await Product.findByIdAndRemove(_id);
-    res.json({ message: 'Your product has been successfuly deleted' });
+    res.json({ message: 'Your product has been successfully deleted' });
   });
 });
 
@@ -127,7 +127,7 @@ router.post('/removeImageByIdAndIndex', async (req, res) => {
       product.imagesUrl.splice(index, 1);
       await Product.findByIdAndUpdate(_id, product);
       fs.unlink(image.path, () => {});
-      res.json({ message: 'Image deleted succesfuly' });
+      res.json({ message: 'Image deleted successfully' });
     }
   });
 });
