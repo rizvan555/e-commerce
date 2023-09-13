@@ -90,7 +90,7 @@ router.post('/getById', async (req, res) => {
 });
 
 //Product Update
-router.post('/update', upload.array(images), async (req, res) => {
+router.post('/update', upload.array('images'), async (req, res) => {
   response(res, async () => {
     const { _id, name, stock, price, categories } = req.body;
     let product = await Product.findById(_id);
@@ -99,7 +99,7 @@ router.post('/update', upload.array(images), async (req, res) => {
     }
 
     let imagesUrl;
-    imagesUrl = [...product.imagesUrl, ...product.files];
+    imagesUrl = [...product.imagesUrl, ...req.files];
     product = {
       name: name.toUpperCase(),
       stock: stock,
