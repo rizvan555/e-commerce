@@ -132,4 +132,16 @@ router.post('/removeImageByIdAndIndex', async (req, res) => {
   });
 });
 
+// Change Active Status
+router.post('/changeActiveStatus', async (req, res) => {
+  response(res, async () => {
+    const { _id } = req.body;
+
+    let product = await Product.findById(_id);
+    product.isActive = !product.isActive;
+    await Product.findByIdAndUpdate(_id, product);
+    res.json({ message: 'Your status has been successfully updated' });
+  });
+});
+
 module.exports = router;
